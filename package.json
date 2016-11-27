@@ -1,10 +1,11 @@
 {
   "name": "workmeout",
   "version": "1.0.0",
-  "description": "A web applicaiton to facilitae the creating and sharing of workout routines.",
+  "description": "A web applicaiton to facilitate the creating and sharing of workout routines.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
