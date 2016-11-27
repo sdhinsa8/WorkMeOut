@@ -9,6 +9,12 @@ var app = express();
 //Set the database connection
 db = require('./models/db');
 
+fs.readdirSync('./models').forEach(function(file) {
+	if (path.extname(file) =='.js') {
+		require('./models/' + file);
+	}
+});
+
 //Set the views directory
 app.set('views',__dirname + '/views');
 

@@ -1,10 +1,15 @@
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
+var ObjectId = mongoose.Schema.Types.ObjectId;
+
 
 var userSchema = new mongoose.Schema({
     name: String,
     username: String,
-    local: { email: String, password: String}
+    local: { email: String, password: String},
+    likes: [ObjectId],
+    currentRoutine: ObjectId,
+    progress: Number
 });
 
 

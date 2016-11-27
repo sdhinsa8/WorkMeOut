@@ -1,4 +1,4 @@
-var mongoose = require('week');
+var mongoose = require('mongoose');
 
 var weekSchema = new mongoose.Schema({
     order: Number,
@@ -10,3 +10,5 @@ var weekSchema = new mongoose.Schema({
     saturday: [{ order: Number, workoutID: Number, workoutName: String, muscle: String , notes: String, sets: [{amount: String, unit: String, }] }],
     sunday: [{ order: Number, workoutID: Number, workoutName: String, muscle: String , notes: String, sets: [{amount: String, unit: String, }] }],
 });
+
+module.exports = mongoose.model('Week', weekSchema);

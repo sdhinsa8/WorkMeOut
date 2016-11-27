@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var routineSchema = new mongoose.Schema({
     name: String,
@@ -8,3 +9,5 @@ var routineSchema = new mongoose.Schema({
     likes: Number,
     tags: [String]
 });
+
+module.exports = mongoose.model('Routine', routineSchema);
