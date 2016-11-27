@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/SebastianGuerreroCardenas/WorkMeOut/issues"
   },
-  "homepage": "https://github.com/SebastianGuerreroCardenas/WorkMeOut#readme"
+  "homepage": "https://github.com/SebastianGuerreroCardenas/WorkMeOut#readme",
+  "dependencies": {
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0"
+  }
 }
