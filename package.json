@@ -1,0 +1,19 @@
+{
+  "name": "workmeout",
+  "version": "1.0.0",
+  "description": "A web applicaiton to facilitae the creating and sharing of workout routines.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SebastianGuerreroCardenas/WorkMeOut.git"
+  },
+  "author": "Sebastian Guerrero Cardenas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SebastianGuerreroCardenas/WorkMeOut/issues"
+  },
+  "homepage": "https://github.com/SebastianGuerreroCardenas/WorkMeOut#readme"
+}
