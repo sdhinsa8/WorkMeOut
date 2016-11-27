@@ -6,6 +6,9 @@ var bodyParser = require("body-parser");
 var express = require("express");
 var app = express();
 
+//Set the database connection
+db = require('./models/db');
+
 //Set the views directory
 app.set('views',__dirname + '/views');
 
@@ -28,7 +31,7 @@ app.use(express.static('public'));
 // Catch any routes not already handed with an error message
 app.use(function(req, res) {
 	var message = 'Error, did not understand path' + req.path;
-	res.status(404).render(error,{'message': message});
+	res.status(404).render('misc/error',{'message': message});
 })
 
 var httpServer = require('http').createServer(app);
