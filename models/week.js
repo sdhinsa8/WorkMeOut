@@ -11,4 +11,5 @@ var weekSchema = new mongoose.Schema({
     sunday: [{ order: Number, workoutID: Number, workoutName: String, muscle: String , notes: String, sets: [{amount: String, unit: String, }] }],
 });
 
+// create the model for week and expose it to our app
 module.exports = mongoose.model('Week', weekSchema);

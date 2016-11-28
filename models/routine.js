@@ -7,7 +7,9 @@ var routineSchema = new mongoose.Schema({
     created: { type: Date, default: Date.now },
     weeks: [ObjectId],
     likes: Number,
-    tags: [String]
+    tags: [String],
+    createdBy: ObjectId
 });
 
+// create the model for routines and expose it to our app
 module.exports = mongoose.model('Routine', routineSchema);
