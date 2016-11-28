@@ -16,23 +16,19 @@
 
     <table>
         <tr>
-            <th></th>
             <th>Name</th>
             <th>Description</th>
             <th>Likes</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
-        <% routines.forEach(function(routine) { %>
         <tr>
-            <td><a href="/routines/show/<%= routine._id%>">Show</a></td>
             <td><%= routine.name %></td>
             <td><%= routine.description %></td>
             <td><%= routine.likes > 0 ? routine.likes : "0" %></td>
             <td><a href="/routines/edit/<%= routine._id%>">Edit</a></td>
-            <td><a class="deleteUserRoutines" href="/routines/delete/<%= routine._id%>">Delete</a></td>
+            <td><a href="/routines/delete/<%= routine._id%>">Delete</a></td>
         </tr>
-        <% }) %>
     </table>
 
     </div>

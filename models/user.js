@@ -23,5 +23,13 @@ userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
+userSchema.methods.getRoutines = function() {
+    console.log("gello");
+    this.model('Routine').find({createdBy: this._id}, 'name description likes', function(err,data){
+        return data;
+    });
+};
+
+
 // create the model for users and expose it to our app
 module.exports = mongoose.model('User', userSchema);

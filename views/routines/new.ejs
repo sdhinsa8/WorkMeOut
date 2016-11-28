@@ -1,55 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<% include ../partials/head %>
-</head>
-<body>
-<div class="container">
-
-    <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span>Routines</h1>
-        <a href="/home" class="btn btn-default btn-sm">Home</a>    
-        <a href="/routines/new" class="btn btn-default btn-sm">Back to Routines</a>
-    </div>
-
-    <div class="row">
-<div class="col-sm-6 col-sm-offset-3">
-
-    <h1><span class="fa fa-sign-in"></span> Signup</h1>
-
-    <!-- show any messages that come back with authentication -->
-    <% if (message.length > 0) { %>
-        <div class="alert alert-danger"><%= message %></div>
-    <% } %>
-
-    <!-- LOGIN FORM -->
-    <form action="/routine/new" method="post">
-        <div class="form-group">
-            <label>name</label>
-            <input type="text" class="form-control" name="name">
+    <head>
+        <% include ../partials/head %>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="page-header text-center">
+                <h1><span class="fa fa-anchor"></span>Routines</h1>
+                <a href="/" class="btn btn-default btn-sm">Home</a>    
+                <a href="/routines/new" class="btn btn-default btn-sm">Back to Routines</a>
+            </div>
+            <div class="row">
+                <!-- show any messages that come back with authentication -->
+                <% if (message.length > 0) { %>
+                <div class="alert alert-danger"><%= message %></div>
+                <% } %>
+                <!-- LOGIN FORM -->
+            </div>
+            <div class="row">
+                <form action="/routines/new" method="post">
+                    <div class="form-group">
+                        <label>name</label>
+                        <input type="text" class="form-control" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea type="text" class="form-control" name="description" rows="2"></textarea>
+                    </div>
+                <button type="submit" class="btn btn-warning btn-lg">Create Routine</button>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Description</label>
-            <input type="text" class="form-control" name="description">
-        </div>
-
-        <button type="submit" class="btn btn-warning btn-lg">Create Routine</button>
-    </form>
-
-    <hr>
-
-    <p>Already have an account? <a href="/login">Login</a></p>
-    <p>Or go <a href="/">home</a>.</p>
-
-</div>
-        
-    </div>
-    
-
-</div>
-    
-</body>
-<footer>
-    <% include ../partials/footer %>
-</footer>
+        <hr>
+        <p>Already have an account? <a href="/login">Login</a></p>
+        <p>Or go <a href="/">home</a>.</p>
+        <!-- ADD FOOTER -->
+    </body>
 </html>

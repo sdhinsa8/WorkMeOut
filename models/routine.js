@@ -11,5 +11,18 @@ var routineSchema = new mongoose.Schema({
     createdBy: ObjectId
 });
 
+//Methods
+
+routineSchema.statics.byUser = function(userId, cb) {
+    return this.find({createdBy: userId}, 'name description likes', cb);
+};
+
+routineSchema.statics.byId = function(id, cb) {
+    return this.find({_id: id}, 'name description likes', cb);
+};
+
+
+
+
 // create the model for routines and expose it to our app
 module.exports = mongoose.model('Routine', routineSchema);
