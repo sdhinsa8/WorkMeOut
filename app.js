@@ -1,10 +1,26 @@
+var express = require("express");
+var app = express();
 var morgan = require('morgan');
 var fs = require("fs");
 var path = require("path");
+var cookieParser = require('cookie-parser');
 var bodyParser = require("body-parser");
+var session = require('express-session');
+var flash = require('connect-flash');
 
-var express = require("express");
-var app = express();
+
+var passport = require('passport');
+require('./config/passport').init(passport);
+// read cookies (needed for auth)
+app.use(cookieParser());
+// get information from html forms
+app.use(bodyParser()); 
+
+// required for passport
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 //Set the database connection
 db = require('./models/db');
