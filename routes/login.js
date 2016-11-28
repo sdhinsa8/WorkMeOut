@@ -1,9 +1,14 @@
 
 exports.init = function(app, passport) {
-    app.get('/', getIndex);
     app.get('/login', getLogin);
     app.get('/signup', getSignup);
     app.get('/logout',getLogout);
+
+    app.get('/', isLoggedIn, function(request, response) {
+        response.render('main/profile', {
+            user : request.user
+        });
+    });
 
     app.post('/signup', passport.authenticate('local-signup', {
         successRedirect : '/profile', // redirect to the secure profile section
@@ -23,10 +28,6 @@ exports.init = function(app, passport) {
         });
     });
 }
-
-getIndex = function(request, response) {
-    response.render('main/index');
-};
 
 getLogin = function(request, response) {
     response.render('main/login',{message: request.flash('loginMessage')});
@@ -50,5 +51,5 @@ function isLoggedIn(request, response, next) {
         return next();
 
     // if they aren't redirect them to the home page
-    response.redirect('/');
+    response.render('main/index');
 }
