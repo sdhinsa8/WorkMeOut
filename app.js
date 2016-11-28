@@ -43,7 +43,7 @@ app.use(morgan('tiny'));
 //Load all the routes in the directory
 fs.readdirSync('./routes').forEach(function(file) {
 	if (path.extname(file) =='.js') {
-		require('./routes/' + file).init(app);
+		require('./routes/' + file).init(app, passport);
 	}
 });
 
@@ -51,9 +51,9 @@ fs.readdirSync('./routes').forEach(function(file) {
 app.use(express.static('public'));
 
 // Catch any routes not already handed with an error message
-app.use(function(req, res) {
-	var message = 'Error, did not understand path' + req.path;
-	res.status(404).render('misc/error',{'message': message});
+app.use(function(request, response) {
+	var message = 'Error, did not understand path' + request.path;
+	response.status(404).render('misc/error',{'message': message});
 })
 
 var httpServer = require('http').createServer(app);

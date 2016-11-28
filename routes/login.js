@@ -1,58 +1,54 @@
 
-exports.init = function(app) {
+exports.init = function(app, passport) {
     app.get('/', getIndex);
     app.get('/login', getLogin);
     app.get('/signup', getSignup);
-    app.post('/signup', postSignup);
-    app.get('/profile', getProfile);
-    app.post('/login', postLogin);
     app.get('/logout',getLogout);
 
+    app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect : '/profile', // redirect to the secure profile section
+        failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
+
+     app.post('/login', passport.authenticate('local-login', {
+        successRedirect : '/profile', // redirect to the secure profile section
+        failureRedirect : '/login', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
+
+    app.get('/profile', isLoggedIn, function(request, response) {
+        response.render('main/profile', {
+            user : request.user // get the user out of session and pass to template
+        });
+    });
 }
 
 getIndex = function(request, response) {
-    message = "Index page for routines";
-    response.render('main/index',{'message': message});
+    response.render('main/index');
 };
 
 getLogin = function(request, response) {
-    message = "Index page for routines";
-    response.render('main/index',{'message': message});
+    response.render('main/login',{message: request.flash('loginMessage')});
 };
 
 getSignup = function(request, response) {
-    message = "Index page for routines";
-    response.render('main/index',{'message': message});
-};
-
-postSignup = function(request, response) {
-    message = "Index page for routines";
-    response.render('main/index',{'message': message});
-};
-
-getProfile = function(request, response) {
-    message = "Index page for routines";
-    response.render('main/index',{'message': message});
-};
-
-postLogin = function(request, response) {
-    message = "Index page for routines";
-    response.render('main/index',{'message': message});
+    response.render('main/signup', { message: request.flash('signupMessage') });
 };
 
 getLogout = function(request, response) {
-    message = "Index page for routines";
-    response.render('main/index',{'message': message});
+    request.logout();
+    response.redirect('/');
 };
 
 
 // route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
+function isLoggedIn(request, response, next) {
 
     // if user is authenticated in the session, carry on 
-    if (req.isAuthenticated())
+    if (request.isAuthenticated())
         return next();
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    response.redirect('/');
 }

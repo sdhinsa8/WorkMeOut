@@ -5,7 +5,6 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var userSchema = new mongoose.Schema({
     name: String,
-    username: String,
     local: { email: String, password: String},
     likes: [ObjectId],
     currentRoutine: ObjectId,

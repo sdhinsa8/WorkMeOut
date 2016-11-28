@@ -1,7 +1,7 @@
 //get Routine model
 var Routine = require('../models/routine.js');
 
-exports.init = function(app) {
+exports.init = function(app, passport) {
     app.get('/routines', getRoutines);
 }
 
