@@ -12,37 +12,37 @@ exports.init = function(app) {
 
 getIndex = function(request, response) {
     message = "Index page for routines";
-    response.render('routines/index',{'message': message});
+    response.render('main/index',{'message': message});
 };
 
 getLogin = function(request, response) {
     message = "Index page for routines";
-    response.render('routines/index',{'message': message});
+    response.render('main/index',{'message': message});
 };
 
 getSignup = function(request, response) {
     message = "Index page for routines";
-    response.render('routines/index',{'message': message});
+    response.render('main/index',{'message': message});
 };
 
 postSignup = function(request, response) {
     message = "Index page for routines";
-    response.render('routines/index',{'message': message});
+    response.render('main/index',{'message': message});
 };
 
 getProfile = function(request, response) {
     message = "Index page for routines";
-    response.render('routines/index',{'message': message});
+    response.render('main/index',{'message': message});
 };
 
 postLogin = function(request, response) {
     message = "Index page for routines";
-    response.render('routines/index',{'message': message});
+    response.render('main/index',{'message': message});
 };
 
 getLogout = function(request, response) {
     message = "Index page for routines";
-    response.render('routines/index',{'message': message});
+    response.render('main/index',{'message': message});
 };
 
 
