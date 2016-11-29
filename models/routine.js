@@ -5,7 +5,7 @@ var routineSchema = new mongoose.Schema({
     name: String,
     description: String,
     created: { type: Date, default: Date.now },
-    weeks: [ObjectId],
+    weeks: [{type: ObjectId, ref: 'Week' }],
     likes: Number,
     tags: [String],
     createdBy: ObjectId

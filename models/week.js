@@ -2,13 +2,13 @@ var mongoose = require('mongoose');
 
 var weekSchema = new mongoose.Schema({
     order: Number,
-    monday: [{ order: Number, workoutID: Number, workoutName: String, muscle: String , notes: String, sets: [{amount: String, unit: String, }] }],
-    tusday: [{ order: Number, workoutID: Number, workoutName: String, muscle: String , notes: String, sets: [{amount: String, unit: String, }] }],
-    wednesday: [{ order: Number, workoutID: Number, workoutName: String, muscle: String , notes: String, sets: [{amount: String, unit: String, }] }],
-    thursday: [{ order: Number, workoutID: Number, workoutName: String, muscle: String , notes: String, sets: [{amount: String, unit: String, }] }],
-    friday: [{ order: Number, workoutID: Number, workoutName: String, muscle: String , notes: String, sets: [{amount: String, unit: String, }] }],
-    saturday: [{ order: Number, workoutID: Number, workoutName: String, muscle: String , notes: String, sets: [{amount: String, unit: String, }] }],
-    sunday: [{ order: Number, workoutID: Number, workoutName: String, muscle: String , notes: String, sets: [{amount: String, unit: String, }] }],
+    monday: [{ rest: String, order: Number, workoutID: Number, workoutName: String, sets: String, amount: String, unit: String }],
+    tusday: [{ rest: String, order: Number, workoutID: Number, workoutName: String, sets: String, amount: String, unit: String }],
+    wednesday: [{ rest: String, order: Number, workoutID: Number, workoutName: String, sets: String, amount: String, unit: String }],
+    thursday: [{ rest: String, order: Number, workoutID: Number, workoutName: String, sets: String, amount: String, unit: String}],
+    friday: [{ rest: String, order: Number, workoutID: Number, workoutName: String, sets: String, amount: String, unit: String }],
+    saturday: [{ rest: String, order: Number, workoutID: Number, workoutName: String, sets: String, amount: String, unit: String }],
+    sunday: [{ rest: String, order: Number, workoutID: Number, workoutName: String, sets: String, amount: String, unit: String }],
 });
 
 // create the model for week and expose it to our app
