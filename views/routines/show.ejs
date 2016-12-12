@@ -14,29 +14,378 @@
     </div>
 
     <div class="row">
+        <!-- LOCAL INFORMATION -->
+        <div class="col-sm-12">
+            <div class="well">
+                <h3><span class="fa fa-user"></span> Routine: <%= routine.name %></h3>
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Likes</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-        <tr>
-            <td><%= routine.name %></td>
-            <td><%= routine.description %></td>
-            <td><%= routine.likes > 0 ? routine.likes : "0" %></td>
-            <td><a href="/routines/edit/<%= routine._id%>">Edit</a></td>
-            <td><a href="/routines/delete/<%= routine._id%>">Delete</a></td>
-        </tr>
-    </table>
+                    <p>
+                        <strong>Description: </strong><%= routine.description %>
+                    </p>
+                    </br>
+                    <h4>Weeks</h4>
+                        <div>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <% for (var i = 1; i <= routine.weeks.length; i++) { %>
+                                    <% if (i === 1) { %>
+                                        <li role="presentation" class="active"><a href="#week<%= i %>" aria-controls="week<%= i %>" role="tab" data-toggle="tab">Week <%= i %></a></li>
+                                    <% } else { %>
+                                        <li role="presentation"><a href="#week<%= i %>" aria-controls="week<%= i %>" role="tab" data-toggle="tab">Week <%= i %></a></li>
+                                    <% } %>
+                                
+                                <% } %>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <% for (var i = 1; i <= routine.weeks.length; i++) { %>
+                                    <% if (i === 1) { %>
+                                        <div role="tabpanel" class="tab-pane active" id="week<%= i %>">
+                                            </br>
+                                            <h5>Sunday:</h5>
+                                                <% if (routine.weeks[i -1].sunday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].sunday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                            <h5>Monday:</h5>
+                                                <% if (routine.weeks[i -1].monday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].monday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                            <h5>Tusday:</h5>
+                                                <% if (routine.weeks[i -1].tusday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].tusday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                            <h5>Wednesday:</h5>
+                                                <% if (routine.weeks[i -1].wednesday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].wednesday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                            <h5>Thursday:</h5>
+                                                <% if (routine.weeks[i -1].thursday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].thursday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                                </br>
+                                            <h5>Friday:</h5>
+                                                <% if (routine.weeks[i -1].friday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].friday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                            <h5>Saturday:</h5>
+                                                <% if (routine.weeks[i -1].saturday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].saturday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                        </div>
+                                    <% } else { %>
+                                        <div role="tabpanel" class="tab-pane" id="week<%= i %>">
+                                            </br>
+                                            </br>
+                                            <h5>Sunday:</h5>
+                                                <% if (routine.weeks[i -1].sunday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].sunday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                            <h5>Monday:</h5>
+                                                <% if (routine.weeks[i -1].monday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].monday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                            <h5>Tusday:</h5>
+                                                <% if (routine.weeks[i -1].tusday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].tusday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                            <h5>Wednesday:</h5>
+                                                <% if (routine.weeks[i -1].wednesday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].wednesday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                            <h5>Thursday:</h5>
+                                                <% if (routine.weeks[i -1].thursday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].thursday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                                </br>
+                                            <h5>Friday:</h5>
+                                                <% if (routine.weeks[i -1].friday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].friday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                            <h5>Saturday:</h5>
+                                                <% if (routine.weeks[i -1].saturday == "") {%>
+                                                    <p>Rest Day</p>
+                                                <% } else { %>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Excersie</th>
+                                                            <th>Sets</th>
+                                                            <th>Units</th>
+                                                            <th>Amount</th>
+                                                            <th>More Info</th>
+                                                        </tr>
+                                                        <% routine.weeks[i -1].saturday.forEach(function(workout) { %>
+                                                        <tr>
+                                                            <td><%= workout.workoutName %></td>
+                                                            <td><%= workout.sets %></td>
+                                                            <td><%= workout.unit %></td>
+                                                            <td><%= workout.amount %></td>
+                                                            <td><a class="workoutInfo" href="/workoutInfo/<%= workout.workoutID%>">Help</a></td>
+                                                        </tr>
+                                                        <% }) %>
+                                                    </table>
+                                                <% } %>
+                                        </div>
+                                    <% } %>
+                                <% } %>
+                                
+                            </div>
+                        </div>
+
+            </div>
+        </div>
 
     </div>
     
 
-</div>
-    
+</div> 
 </body>
 <footer>
     <% include ../partials/footer %>

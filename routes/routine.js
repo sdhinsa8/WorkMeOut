@@ -15,7 +15,7 @@ exports.init = function(app, passport) {
 
     app.get('/routines/show/:id', isLoggedIn, function(request, response) {
 
-       Routine.findById(request.params.id, function(err, rou) {
+       Routine.findById(request.params.id).populate('weeks').exec(function(err, rou) {
            response.render('routines/show', { routine: rou, user : request.user , message: request.flash('indexRoutineMessage') });
        });
     });
