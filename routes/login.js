@@ -1,3 +1,4 @@
+var Routine = require('../models/routine.js');
 
 exports.init = function(app, passport) {
     app.get('/login', getLogin);
@@ -5,9 +6,7 @@ exports.init = function(app, passport) {
     app.get('/logout',getLogout);
 
     app.get('/', isLoggedIn, function(request, response) {
-        response.render('main/profile', {
-            user : request.user
-        });
+        response.redirect("/profile");
     });
 
     app.post('/signup', passport.authenticate('local-signup', {
@@ -23,9 +22,22 @@ exports.init = function(app, passport) {
     }));
 
     app.get('/profile', isLoggedIn, function(request, response) {
-        response.render('main/profile', {
-            user : request.user // get the user out of session and pass to template
-        });
+        if (!('currentRoutine' in request.user)) {
+                console.log("First");
+                response.render('main/profile', {
+                user : request.user, // get the user out of session and pass to template
+                currentRoutine : "No Current Routine"
+            }); 
+        } else {
+            Routine.findById(request.user.currentRoutine).populate('weeks').exec(function(err, rou)  {
+                console.log("second");
+                response.render('main/profile', {
+                    user : request.user, // get the user out of session and pass to template
+                    currentRoutine: rou
+                }); 
+            });
+            
+        }
     });
 }
 

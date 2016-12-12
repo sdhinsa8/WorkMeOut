@@ -10,6 +10,7 @@
         <h1><span class="fa fa-anchor"></span>Routines</h1>
         <a href="/" class="btn btn-default btn-sm">Home</a>
         <a href="/routines/new" class="btn btn-default btn-sm">Create Routine</a>
+        <a href="/Search" class="btn btn-default btn-sm">Search for Other Rutines</a>
     </div>
 
     <div class="row">
@@ -22,6 +23,7 @@
             <th>Likes</th>
             <th>Edit</th>
             <th>Delete</th>
+            <th>Make Routine</th>
         </tr>
         <% routines.forEach(function(routine) { %>
         <tr>
@@ -31,6 +33,7 @@
             <td><%= routine.likes > 0 ? routine.likes : "0" %></td>
             <td><a href="/routines/edit/<%= routine._id%>">Edit</a></td>
             <td><a class="deleteUserRoutines" href="/routines/delete/<%= routine._id%>">Delete</a></td>
+            <td><a class="makeFavorite" href="/routines/makeFavorite/<%= routine._id%>">Make Main Routine</a></td>
         </tr>
         <% }) %>
     </table>

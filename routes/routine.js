@@ -1,6 +1,7 @@
 //get Routine model
 var Routine = require('../models/routine.js');
 var Week = require('../models/week.js');
+var User = require('../models/user.js');var Routine = require('../models/routine.js');
 
 exports.init = function(app, passport) {
 
@@ -228,6 +229,26 @@ exports.init = function(app, passport) {
                 console.log("could not delete");
             }
             response.send({response: "true"});
+        });
+    });
+
+
+    //needs testing
+    app.get('/routines/makeFavorite/:id', isLoggedIn, function(request,response){
+        console.log("madeitHere");
+
+        Routine.findById(request.params.id).exec(function(err, rou) {
+            request.user.currentRoutine = rou._id;
+            request.user.save(function(err) {
+                if (err) {
+                    console.log("error happened");
+                } else {
+                    console.log(request.user);
+                    response.redirect('/');
+                }
+            });
+            
+            
         });
     });
 

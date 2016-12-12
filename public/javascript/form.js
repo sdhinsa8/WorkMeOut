@@ -1,4 +1,21 @@
 $(function() {
+
+	$(".searchButton").click(function(event) {
+		//get data from form
+		searchTerm = ""
+		$.ajax({
+		    url: "/searchTerm/" + searchTerm,
+		    type: 'GET',
+		    success: function(result) {
+		      //delete contents of cards or rows
+
+			  //recreate the table with the new incoming resutls
+		      }
+		    });
+		event.preventDefault();
+	});
+
+
     $(".deleteUserRoutines").click(function(event) {
 		$.ajax({
 		    url: event.currentTarget.href,
