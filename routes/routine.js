@@ -8,7 +8,6 @@ exports.init = function(app, passport) {
     app.get('/routines', isLoggedIn, function(request, response) {
        //queryResult = Routine.searchByUser(request.user._id);
        likeRoutinesResult = [];
-       console.log(request.user.likes.length);
        request.user.likes.forEach(function(like, index){
             Routine.findById(like).exec(function(err, lrou) {
                 likeRoutinesResult.push(lrou);
@@ -22,7 +21,6 @@ exports.init = function(app, passport) {
     });
 
     app.get('/routines/show/:id', isLoggedIn, function(request, response) {
-        console.log(request.user);
        Routine.findById(request.params.id).populate('weeks').exec(function(err, rou) {
            response.render('routines/show', { routine: rou, user : request.user , message: request.flash('indexRoutineMessage') });
        });
@@ -40,7 +38,6 @@ exports.init = function(app, passport) {
             rou.name = request.body.name;
             rou.description = request.body.description;
 
-            rou.weeks[0].sunday[0].amount = 4;
             rou.weeks[0].save(function(err) {
                 if (err) {
                     request.flash("newRoutineMessage","Could not save Routine");
@@ -231,7 +228,6 @@ exports.init = function(app, passport) {
     });
 
     app.delete('/routines/delete/:id', isLoggedIn, function(request,response){
-        console.log("madeitHere");
         Routine.findByIdAndRemove(request.params.id, function(err) {
             if (err) {
                 console.log("could not delete");
@@ -243,15 +239,12 @@ exports.init = function(app, passport) {
 
     //needs testing
     app.get('/routines/makeFavorite/:id', isLoggedIn, function(request,response){
-        console.log("madeitHere");
-
         Routine.findById(request.params.id).exec(function(err, rou) {
             request.user.currentRoutine = rou._id;
             request.user.save(function(err) {
                 if (err) {
                     console.log("error happened");
                 } else {
-                    console.log(request.user);
                     response.redirect('/');
                 }
             });
@@ -261,14 +254,11 @@ exports.init = function(app, passport) {
     });
 
     app.get('/routines/like/:id', isLoggedIn, function(request,response){
-        console.log("like");
-
             request.user.likes.push(request.params.id);
             request.user.save(function(err) {
                 if (err) {
                     console.log("error happened");
                 } else {
-                    console.log(request.user);
                     response.redirect('back');
                 }
             
@@ -276,16 +266,12 @@ exports.init = function(app, passport) {
     });
 
     app.get('/routines/dislike/:id', isLoggedIn, function(request,response){
-        console.log("dislike");
-
-
             let index = request.user.likes.indexOf(request.params.id);
             request.user.likes.splice(index, 1);
             request.user.save(function(err) {
                 if (err) {
                     console.log("error happened");
                 } else {
-                    console.log(request.user);
                     response.redirect('back');
                 }
             
