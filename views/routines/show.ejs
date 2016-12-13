@@ -57,6 +57,7 @@
                         <% if (user.likes.length == 0 || local == false) { %>
                             <a href="/routines/like/<%= routine._id%>" class="btn btn-warning btn-sm">Like this Routine</a>
                         <% } %>
+                        <a class="btn btn-success btn-sm makeFavorite" href="/routines/makeFavorite/<%= routine._id%>">Make Main Routine</a>
                     </br>
                     <h4>Weeks</h4>
                         <div>
