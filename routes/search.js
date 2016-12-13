@@ -14,11 +14,15 @@ exports.init = function(app, passport) {
 
     app.get('/searchTerm/:term', isLoggedIn, function(request, response) {
        searchTerm = request.params.term
-    //    Routine.find({"description": searchTerm})
-       response.send('search/search',{
-           user: request.user,
-           results: rou
-       });
+        Routine.find({"description": { "$regex": searchTerm, "$options": 'i'}} ,function(err, rou){
+            if (err) {
+                console.log(err);
+            } else {
+                response.send({
+                     results: rou
+                });
+            }
+        });
     });
 
 }

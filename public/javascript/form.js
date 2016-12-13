@@ -1,15 +1,104 @@
 $(function() {
 
+	$(".workoutInfo").click(function(event) {
+		//get data from form
+		console.log(event.currentTarget.href.substring(34));
+		id = event.currentTarget.href.substring(34);
+		$('#exDescription').empty();
+		$('#exPicture').empty();
+		$('#myModalLabel').empty();
+		$('#exCategory').empty();
+		$('#exMuscles').empty();
+		$.ajax({
+		    url: "https://wger.de/api/v2/exerciseimage/?exercise=" + id,
+			//headers: {"Authorization": "Token 28b066ae39ddd20837753c1eec2a7c5fef6362a2"},
+		    type: 'GET',
+		    success: function(result) {
+				var r = ``
+				 if (result.results.length == 0) {
+					 r = `<h5>Illustration</h5> <p>No Image</p>`
+					 $('#exPicture').append(r);
+				 } else  {
+				    r = `
+					<h5>Illustration</h5>
+					<div class="thumbnail">
+				  	<img src=${result.results[0].image} >
+					</div>
+			  		`
+					  $('#exPicture').append(r);
+				 }
+		      }
+		  });
+
+		  $.ajax({
+		    url: "https://wger.de/api/v2/exercise/" + id,
+			//headers: {"Authorization": "Token 28b066ae39ddd20837753c1eec2a7c5fef6362a2"},
+		    type: 'GET',
+			//contentType: "application/json",
+			//dataType: "json",
+		    success: function(result) {
+				  console.log(result);
+				  $('#exDescription').append("<h5>Description</h5>"+result.description);
+				  $('#myModalLabel').append(result.name);
+
+				  $.ajax({
+						url: "https://wger.de/api/v2/exercisecategory/" + result.category,
+						//headers: {"Authorization": "Token 28b066ae39ddd20837753c1eec2a7c5fef6362a2"},
+						type: 'GET',
+						success: function(result) {
+							var r = `
+								<h5>Category</h5>
+								<p>${result.name}</p>
+								`
+							$('#exCategory').append(r);
+						
+						}
+					});
+
+					result.muscles.forEach(function(mus) {
+						$.ajax({
+							url: "https://wger.de/api/v2/muscle/" + mus,
+							//headers: {"Authorization": "Token 28b066ae39ddd20837753c1eec2a7c5fef6362a2"},
+							type: 'GET',
+							success: function(result) {
+							
+								var r = `
+									<p>${result.name}</p>
+									`
+								$('#exMuscles').append(r);
+							}
+						});
+
+					});
+
+		      }
+		  });
+
+		$('#myModal').modal();
+		$('#myModal').modal('show');
+		event.preventDefault()
+	});
+
 	$(".searchButton").click(function(event) {
 		//get data from form
-		searchTerm = ""
+		searchTerm = $('.searchBar').val()
 		$.ajax({
 		    url: "/searchTerm/" + searchTerm,
 		    type: 'GET',
 		    success: function(result) {
 		      //delete contents of cards or rows
-
+			  console.log(result);
+			  $('.list-group').empty();
+			  result.results.forEach(function(rou) {
+				  var r = `
+			  		<a href="/routines/show/${rou._id}" class="list-group-item list-group-item-action"> <h5 class="list-group-item-heading">${rou.name}</h5>
+              		<p class="list-group-item-text">${rou.description}</p>
+              		</a>
+			  		`
+				  $('.list-group').append(r);
+			  });
 			  //recreate the table with the new incoming resutls
+
 		      }
 		    });
 		event.preventDefault();
