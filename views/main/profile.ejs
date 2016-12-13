@@ -94,6 +94,7 @@
                                                 <% if (currentRoutine.weeks[i -1].monday == "") {%>
                                                     <p>Rest Day</p>
                                                 <% } else { %>
+                                                <div class="table-responsive">
                                                     <table class="table">
                                                         <tr>
                                                             <th>Excersie</th>
@@ -112,6 +113,7 @@
                                                         </tr>
                                                         <% }) %>
                                                     </table>
+                                                </div>
                                                 <% } %>
                                             <h5>Tusday:</h5>
                                                 <% if (currentRoutine.weeks[i -1].tusday == "") {%>
