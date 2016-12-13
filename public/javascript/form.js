@@ -1,14 +1,18 @@
-$(function() {
+//This is the logic for the client of the website, instead of having multiple javascript files it is all handles in one file
 
+$(function() {
+	//The function below gathers the information from the api about a particular excercise
+	// and loads it into a modal view for the user
 	$(".workoutInfo").click(function(event) {
-		//get data from form
-		console.log(event.currentTarget.href.substring(34));
+		//get data from button
 		id = event.currentTarget.href.split('/').pop();
+		//clear the modal
 		$('#exDescription').empty();
 		$('#exPicture').empty();
 		$('#myModalLabel').empty();
 		$('#exCategory').empty();
 		$('#exMuscles').empty();
+		//Below are the calls for getting the multiple resources for an excercies from multiple endspoints
 		$.ajax({
 		    url: "https://wger.de/api/v2/exerciseimage/?exercise=" + id,
 			//headers: {"Authorization": "Token 28b066ae39ddd20837753c1eec2a7c5fef6362a2"},
@@ -70,15 +74,15 @@ $(function() {
 						});
 
 					});
-
 		      }
 		  });
-
+		//Modal is shown
 		$('#myModal').modal();
 		$('#myModal').modal('show');
 		event.preventDefault()
 	});
 
+	//This handles the search button , and  hits the database, and updates the table with the search results
 	$(".searchButton").click(function(event) {
 		//get data from form
 		searchTerm = $('.searchBar').val()
@@ -97,14 +101,12 @@ $(function() {
 			  		`
 				  $('.list-group').append(r);
 			  });
-			  //recreate the table with the new incoming resutls
-
 		      }
 		    });
 		event.preventDefault();
 	});
 
-
+	//If a routine is delete it will reload the page to get rid d the value
     $(".deleteUserRoutines").click(function(event) {
 		$.ajax({
 		    url: event.currentTarget.href,
@@ -116,7 +118,7 @@ $(function() {
 		event.preventDefault();
 	});
 
-
+	//handles animation for adding anew week along with its days.
 	$('#addWeek').click(function(event) {
 		let weekCount = $('#weeks').children().length + 1;
 		createLocalStorage(weekCount - 1);//Makes sure that local storage is clear
@@ -132,6 +134,7 @@ $(function() {
 		});
 	});
 
+	//Adds a routine.
 	$("#addRoutineButton").click(function(event) {
 		let weekCount = $('#weeks').children().length;
 		$('<input />').attr('type', 'hidden')
@@ -144,7 +147,10 @@ $(function() {
           .attr('value', weekCount)
           .appendTo('#routineForm');
 	});
+
+	//handles logiic if the page is in edit more
 	if (location.pathname.substring(0,14) === "/routines/edit") {
+		//mor log for when it comes to editin using the data from  local storage
 		$.ajax({
 		    url: "/api" + location.pathname ,
 		    type: 'GET',
@@ -162,9 +168,8 @@ $(function() {
                 $('#myModal').modal('show');
                 modalRules(event);
             });
-
-						//createLocalStorage
-						createLocalStorageFromRoutine(result.routine);
+			//createLocalStorage
+			createLocalStorageFromRoutine(result.routine);
 		      }
 		    });
 		}
@@ -209,6 +214,7 @@ var queryForTerms = function(term) {
 	});
 };
 
+//Createst the select for each modal. Because it is constaly changing, it is created on the client side.
 var createSelect = function(unit) {
 	result = ""
 	let units = ["Kilometers", "Miles", "Minutes", "Reps", "Seconds", "Failure"]
@@ -223,6 +229,8 @@ var createSelect = function(unit) {
 	return result;
 }
 
+//Creates the input fields for the modal, and because it is dynamic with each day it has to be created on the client. This could be changed
+//if I were using tools like React or angular.
 var createInputFields = function(data) {
 	endresult = "";
 	data.forEach(function(datum) {
@@ -253,12 +261,14 @@ var createInputFields = function(data) {
 	return endresult;
 }
 
+//Created the modeal regardless of edit or new
 var createModal = function(id) {
 	let weeks = {"sun": "Sunday", "mon": "Monday", "tus": "Tusday", "wed": "Wednesday", "thu": "Thursday", "fri": "Friday", "sat": "Saturday"};
 	let dayOfWeek = weeks[id.substring(0, 3)];
 	let weekNumber = id.substring(3, 4);
 	let data = checkIfDataExists(weekNumber,dayOfWeek);
 	var fields = "";
+	//if exiting fileds exists it will make sure to create the form with existing data
 	if (data) {
 		fields = createInputFields(data);
 	} 
@@ -298,6 +308,7 @@ var createModal = function(id) {
 	return result
 }
 
+//Checks if there is anything stored locally
 var checkIfDataExists = function(weekNumber,dayOfWeek) {
 	var storage = JSON.parse(localStorage.getItem("weeks"));
 
@@ -310,26 +321,24 @@ var checkIfDataExists = function(weekNumber,dayOfWeek) {
 }
 
 
-//Modal Rules and Methods
-
-//main rules
+//main rules for the app to follow
 modalRules = function(event) {
 	queryWhenTyped(event);
 	addExcerciseButton(event);
 	saveDayButton();
-
-
 }
 
 //query rule for making autocomplete
 var queryWhenTyped = function(event) {
 	$('#searchEx').on('input',function(event) {
-			if (event.currentTarget.value.length > 3) {
+			//after two letters with the help of the api it will craete autocomplete
+			if (event.currentTarget.value.length > 2) {
 				queryForTerms(event.currentTarget.value);
 			}
 	});
 }
 
+// This is the logic for the add excercise button in the modal view
 var addExcerciseButton = function(event) {
 	$(".addExcercise").click(function(event) {
 		let excercise = $('#searchEx').val()
@@ -349,7 +358,7 @@ var addExcerciseButton = function(event) {
 	});
 }
 
-
+//If the add excercise button is clicked this creates the form for each excercise
 var addExcerciseForm = function(excerciseOb) {
 
 	result = `
@@ -380,6 +389,7 @@ var addExcerciseForm = function(excerciseOb) {
 	return result
 }
 
+//Saves an independent day locally
 var saveDayButton = function() {
 	$(".saveDay").click(function(event) {
 		clearDay();
@@ -391,7 +401,6 @@ var saveDayButton = function() {
 				var ramount = $('#amount' + rexID).val();
 				var runit = $('#unit' + rexID).val();
 				storing = {id: rexID, name: rname, set: rset, amount: ramount, unit: runit, order: index};
-				console.log(storing);
 				storeADayLocally(storing);
 			}
 		});
@@ -400,13 +409,14 @@ var saveDayButton = function() {
 	});
 }
 
-
+//saves the data locally 
 var createLocalStorage = function(weekCount) {
 	if(weekCount == 0) {
 		localStorage.setItem("weeks", JSON.stringify({}))
 	}
 }
 
+//if it is a new form before editing it or creating it it makes sure there is no history
 var clearDay = function() {
 	let id = $('#currentDate').data('dayweek');
 	let weeks = {"sun": "Sunday", "mon": "Monday", "tus": "Tusday", "wed": "Wednesday", "thu": "Thursday", "fri": "Friday", "sat": "Saturday"};
@@ -422,6 +432,7 @@ var clearDay = function() {
 	localStorage.setItem('weeks', JSON.stringify(storage));
 }
 
+//Stores a scpecific day locally in the database
 var storeADayLocally = function(storing) {
 	let id = $('#currentDate').data('dayweek');
 	let weeks = {"sun": "Sunday", "mon": "Monday", "tus": "Tusday", "wed": "Wednesday", "thu": "Thursday", "fri": "Friday", "sat": "Saturday"};
@@ -437,7 +448,7 @@ var storeADayLocally = function(storing) {
 	localStorage.setItem('weeks', JSON.stringify(storage));
 }
 
-
+//Once everything is in place it creates the overall routine in localstorage
 var createLocalStorageFromRoutine = function(routine) {
 	finalObject = {};
 	let totalWeeks = routine.weeks.length;
