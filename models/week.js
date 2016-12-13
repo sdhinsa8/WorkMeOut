@@ -13,3 +13,7 @@ var weekSchema = new mongoose.Schema({
 
 // create the model for week and expose it to our app
 module.exports = mongoose.model('Week', weekSchema);
+
+//note:
+//In reality this could have split even further by creating a model for a day, and then just linking that object id to each day of the week,
+//Becauuse of time constrains things like that would have taken longer to implement , but i do acknoledge that there is a better way

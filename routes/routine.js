@@ -5,8 +5,8 @@ var User = require('../models/user.js');var Routine = require('../models/routine
 
 exports.init = function(app, passport) {
 
+    //index for routines, which return the users created routines along with their liked routines
     app.get('/routines', isLoggedIn, function(request, response) {
-       //queryResult = Routine.searchByUser(request.user._id);
        likeRoutinesResult = [];
        request.user.likes.forEach(function(like, index){
             Routine.findById(like).exec(function(err, lrou) {
@@ -20,18 +20,21 @@ exports.init = function(app, passport) {
        });
     });
 
+    //A show page for indivdual routines
     app.get('/routines/show/:id', isLoggedIn, function(request, response) {
        Routine.findById(request.params.id).populate('weeks').exec(function(err, rou) {
            response.render('routines/show', { routine: rou, user : request.user , message: request.flash('indexRoutineMessage') });
        });
     });
 
+    //edit page for a routine
     app.get('/routines/edit/:id', isLoggedIn, function(request, response) {
         Routine.findById(request.params.id).populate('weeks').exec(function(err, rou) {
             response.render('routines/edit', { routine: rou, user : request.user, message: request.flash('indexRoutineMessage')  });
         });
     });
 
+    //edit handler that updates an object
     app.post('/routines/edit/:id', isLoggedIn, function(request, response) {
         let weekData = JSON.parse(request.body.weekData);
         Routine.findById(request.params.id).populate('weeks').exec(function(err, rou) {
@@ -46,7 +49,7 @@ exports.init = function(app, passport) {
             });
 
 
-
+            //itereates routine objects and checks for differences
             for (i = 1; i < rou.weeks.length + 1; i++) { 
                 sun = rou.weeks[i - 1].sunday;
                 for (j = 0; j < sun.length; j++) { 
@@ -127,10 +130,6 @@ exports.init = function(app, passport) {
             }
 
 
-
-
-
-
             rou.save(function(err) {
                 if (err) {
                     request.flash("newRoutineMessage","Could not save Routine");
@@ -141,6 +140,7 @@ exports.init = function(app, passport) {
         });
     });
 
+    //when editing the api returns an object
     app.get('/api/routines/edit/:id', isLoggedIn, function(request, response) {
 
         Routine.findById(request.params.id).populate('weeks').exec(function(err, rou) {
@@ -150,11 +150,12 @@ exports.init = function(app, passport) {
     });
 
     
-
+    //The new apge for creating a routine
     app.get('/routines/new', isLoggedIn, function(request, response) {
         response.render('routines/new', {message: request.flash('newRoutineMessage')});
     });
 
+    //handles creating a new object
     app.post('/routines/new', isLoggedIn, function(request, response) {
         var routineWeeksList = [];
         let weekDays = ["Sunday", "Monday","Tusday","Wednesday","Thursday","Friday","Saturday"]
@@ -227,6 +228,7 @@ exports.init = function(app, passport) {
         response.redirect('/routines');
     });
 
+    //deletes an object
     app.delete('/routines/delete/:id', isLoggedIn, function(request,response){
         Routine.findByIdAndRemove(request.params.id, function(err) {
             if (err) {
@@ -237,7 +239,7 @@ exports.init = function(app, passport) {
     });
 
 
-    //needs testing
+    //adds the updated favorite and sets to a new
     app.get('/routines/makeFavorite/:id', isLoggedIn, function(request,response){
         Routine.findById(request.params.id).exec(function(err, rou) {
             request.user.currentRoutine = rou._id;
@@ -253,6 +255,7 @@ exports.init = function(app, passport) {
         });
     });
 
+    //adds a like
     app.get('/routines/like/:id', isLoggedIn, function(request,response){
             request.user.likes.push(request.params.id);
             request.user.save(function(err) {
@@ -265,6 +268,7 @@ exports.init = function(app, passport) {
         });
     });
 
+    //gets rid of a like
     app.get('/routines/dislike/:id', isLoggedIn, function(request,response){
             let index = request.user.likes.indexOf(request.params.id);
             request.user.likes.splice(index, 1);
@@ -279,6 +283,7 @@ exports.init = function(app, passport) {
     });
 
 }
+//src: https://scotch.io/tutorials/easy-node-authentication-setup-and-local
 // route middleware to make sure a user is logged in
 function isLoggedIn(request, response, next) {
 

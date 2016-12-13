@@ -2,8 +2,7 @@
 var Week = require('../models/week.js');
 
 exports.init = function(app, passport) {
-
-
+    //creates a week
     app.post('/routines/new', isLoggedIn, function(request, response) {
         response.render('routines/new', {message: request.flash('newRoutineMessage')});
     });

@@ -1,5 +1,7 @@
 var Routine = require('../models/routine.js');
 
+//From lines 5 to 25, and  45 to 68 is from Source: https://scotch.io/tutorials/easy-node-authentication-setup-and-local
+
 exports.init = function(app, passport) {
     app.get('/login', getLogin);
     app.get('/signup', getSignup);
@@ -23,7 +25,6 @@ exports.init = function(app, passport) {
 
     app.get('/profile', isLoggedIn, function(request, response) {
         if (!('currentRoutine' in request.user)) {
-                console.log("First");
                 response.render('main/profile', {
                 user : request.user, // get the user out of session and pass to template
                 currentRoutine : "No Current Routine"

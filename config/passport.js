@@ -1,9 +1,8 @@
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
+//src: https://scotch.io/tutorials/easy-node-authentication-setup-and-local
 
 exports.init = function(passport) {
-
-    //src: https://scotch.io/tutorials/easy-node-authentication-setup-and-local
 
     // =========================================================================
     // LOCAL LOGIN =============================================================

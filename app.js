@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(bodyParser()); 
 
 // required for passport
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(session({ secret: 'asdfhasdlkjfhasdkfhasdlkfhsljh' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
