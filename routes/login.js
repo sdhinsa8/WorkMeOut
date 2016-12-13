@@ -7,6 +7,10 @@ exports.init = function(app, passport) {
     app.get('/signup', getSignup);
     app.get('/logout',getLogout);
 
+    app.get('/whatILearned', function(request, response) {
+        response.render("main/whatILearned");
+    });
+
     app.get('/', isLoggedIn, function(request, response) {
         response.redirect("/profile");
     });
