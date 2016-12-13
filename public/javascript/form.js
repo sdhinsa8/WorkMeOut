@@ -3,7 +3,7 @@ $(function() {
 	$(".workoutInfo").click(function(event) {
 		//get data from form
 		console.log(event.currentTarget.href.substring(34));
-		id = event.currentTarget.href.substring(34);
+		id = event.currentTarget.href.split('/').pop();
 		$('#exDescription').empty();
 		$('#exPicture').empty();
 		$('#myModalLabel').empty();
