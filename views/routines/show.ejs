@@ -46,6 +46,17 @@
                         <strong>Description: </strong><%= routine.description %></br>
                         <strong>Created By: </strong><%= user.name %>
                     </p>
+                        <% var local = false %>
+                        <% user.likes.forEach(function(id){ %>
+                            <% if (String(id) == String(routine._id)) { %>
+                                <a href="/routines/dislike/<%= routine._id%>" class="btn btn-warning btn-sm">Dislike this Routine</a>
+                                <% local = true %>
+                            <% } else {%>
+                                
+                        <% }  }) %>
+                        <% if (user.likes.length == 0 || local == false) { %>
+                            <a href="/routines/like/<%= routine._id%>" class="btn btn-warning btn-sm">Like this Routine</a>
+                        <% } %>
                     </br>
                     <h4>Weeks</h4>
                         <div>

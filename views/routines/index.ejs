@@ -14,7 +14,7 @@
     </div>
 
     <div class="row">
-
+    <h4>Your Routines</h4>
     <table class="table">
         <tr>
             <th></th>
@@ -37,6 +37,18 @@
         </tr>
         <% }) %>
     </table>
+    <br>
+        <h4>Your Likes</h4>
+        <div class="col-sm-12">
+            <div class="list-group">
+
+                <% likeRoutines.forEach(function(likeRoutine) { %>
+                    <a href="/routines/show/<%= likeRoutine._id %>" class="list-group-item list-group-item-action"> <h5 class="list-group-item-heading"><%= likeRoutine.name %></h5>
+              		<p class="list-group-item-text"><%= likeRoutine.description %></p>
+              		</a>
+                <% }) %>
+            </div
+        </div>
 
     </div>
     
