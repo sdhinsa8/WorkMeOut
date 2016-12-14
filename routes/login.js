@@ -28,14 +28,14 @@ exports.init = function(app, passport) {
     }));
 
     app.get('/profile', isLoggedIn, function(request, response) {
-        if (!('currentRoutine' in request.user)) {
+        notThere = {name: "No Current Routine", description: "", weeks: []};
+        if (request.user.currentRoutine == undefined) {
                 response.render('main/profile', {
                 user : request.user, // get the user out of session and pass to template
-                currentRoutine : "No Current Routine"
+                currentRoutine: notThere
             }); 
         } else {
             Routine.findById(request.user.currentRoutine).populate('weeks').exec(function(err, rou)  {
-                console.log("second");
                 response.render('main/profile', {
                     user : request.user, // get the user out of session and pass to template
                     currentRoutine: rou

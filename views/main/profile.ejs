@@ -41,6 +41,11 @@
         </div>
 
             <div class="well">
+                
+                <% if (currentRoutine.name == "No Current Routine") { %>
+                    <h3><span class="fa fa-user"></span> You have no current workout routine.</h3>
+                <% } else { %>
+
                 <h3><span class="fa fa-user"></span> Your Current Workout Routine: <%= currentRoutine.name %></h3>
 
                     <p>
@@ -430,7 +435,7 @@
                                 
                             </div>
                         </div>
-
+                <% } %>
             </div>
         </div>
     </div>
