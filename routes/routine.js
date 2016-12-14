@@ -18,6 +18,11 @@ exports.init = function(app, passport) {
                 }
             });
        });
+       if (request.user.likes.length == 0) {
+           Routine.byUser(request.user._id, function(err, rou) {
+                response.render('routines/index', { routines: rou, user : request.user , likeRoutines: likeRoutinesResult ,message: request.flash('indexRoutineMessage') });
+            });
+       } 
     });
 
     //A show page for indivdual routines
@@ -257,6 +262,18 @@ exports.init = function(app, passport) {
 
     //adds a like
     app.get('/routines/like/:id', isLoggedIn, function(request,response){
+            Routine.findById(request.params.id).exec(function(err, rou) {
+                if (rou.like == undefined) {
+                    rou.likes = 0;
+                    rou.likes += 1;
+                } else {
+                    rou.likes += 1; 
+                }
+                rou.save(function(err) {
+                    console.log(err);
+                });
+            });
+
             request.user.likes.push(request.params.id);
             request.user.save(function(err) {
                 if (err) {
@@ -270,6 +287,18 @@ exports.init = function(app, passport) {
 
     //gets rid of a like
     app.get('/routines/dislike/:id', isLoggedIn, function(request,response){
+
+            Routine.findById(request.params.id).exec(function(err, rou) {
+                if (rou.like == undefined) {
+                    rou.likes = 0;
+                    rou.likes -= 1;
+                } else {
+                    rou.likes -= 1; 
+                }
+                rou.save(function(err) {
+                    console.log(err);
+                });
+            });
             let index = request.user.likes.indexOf(request.params.id);
             request.user.likes.splice(index, 1);
             request.user.save(function(err) {
